@@ -6,3 +6,4 @@
 /data
 *test.yaml
 *nohup
+*.out
