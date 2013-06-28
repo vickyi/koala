@@ -4,6 +4,7 @@
 .settings/*
 /data/*
 /data
+*/test/*
 *test.yaml
 *nohup
 *.out
