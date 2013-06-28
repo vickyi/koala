@@ -96,7 +96,4 @@ travel_agency
 university
 veterinary_care
 zoo
-
-
-supported languages
 """

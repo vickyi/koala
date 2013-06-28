@@ -70,6 +70,6 @@ class MongoCRUD:
 
     def update_location_status(self, location):
         db = self.con.map_data
-        db.google_places.update({'location': location}, {'$set': {'status': '1'}}, upsert=True, safe=True)
+        db.google_places.update({'lat': location['lat'], 'lng': location['lng']}, {'$set': {'status': '1'}}, upsert=True, safe=True)
 
 
