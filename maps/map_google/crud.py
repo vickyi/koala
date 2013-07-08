@@ -54,7 +54,7 @@ class MongoCRUD:
         try:
             db.google_circle_center.insert(result, save=True)
         except errors.DuplicateKeyError, e:
-            print 'pymongo errors.DuplicateKeyError', e
+            print 'pymongo errors.DuplicateKeyError',
 
     def save_circle_centers(self, results):
         db = self.con.map_data
@@ -66,10 +66,10 @@ class MongoCRUD:
 
     def read_all_locations(self):
         db = self.con.map_data
-        return db.google_circle_center.find({"status": '0'}, timeout=False)
+        return db.google_circle_center.find({'status': '0'}, timeout=False)
 
-    def update_location_status(self, location):
+    def update_location_status(self, _id):
         db = self.con.map_data
-        db.google_places.update({'lat': location['lat'], 'lng': location['lng']}, {'$set': {'status': '1'}}, upsert=True, safe=True)
+        db.google_circle_center.update({'_id': _id}, {'$set': {'status': '1'}}, upsert=False)
 
 

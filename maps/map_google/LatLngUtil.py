@@ -6,8 +6,8 @@ from math import sin, asin, cos, degrees #, radians, fabs, sqrt
 
 
 class PointOnEarth:
-    tolerance = 0.000000001# 公差
-    R = 6371300.0
+    tolerance = 0.0000001# 公差
+    R = 6371.3
 
     def __init__(self, lng=0.0, lat=0.0):
         """
@@ -31,55 +31,22 @@ class PointOnEarth:
     def radToDis(self, radian):
         return radian * self.R
 
-    def distanceTo(self, p):
-        return self.radToDis(
-            math.acos(
-                math.cos(
-                    self.degToRad(self.lat)
-                ) * math.cos(
-                    self.degToRad(p.lat)
-                ) * math.cos(
-                    self.degToRad(self.lng - p.lng)
-                ) + math.sin(
-                    self.degToRad(self.lat)
-                ) * math.sin(
-                    self.degToRad(p.lat)
-                )
-            )
-        )
-
-    def getAround(self, lat, lng, raidus):
-        PI = math.pi
-        latitude = lat
-        longitude = lng
-
-        degree = (24901 * 1609) / 360.0
-        raidusMile = raidus
-
-        dpmLat = 1 / degree
-        radiusLat = dpmLat * raidusMile
-        minLat = latitude - radiusLat
-        maxLat = latitude + radiusLat
-
-        mpdLng = degree * math.cos(latitude * (PI / 180))
-        dpmLng = 1 / mpdLng
-        radiusLng = dpmLng * raidusMile
-        minLng = longitude - radiusLng
-        maxLng = longitude + radiusLng
-        print minLat, minLng
-        print maxLat, maxLng
-
-    def get_lat_lng(self, lat, lng, distance):
-        EARTH_RADIUS = 6371.3
-        dlng = 2 * asin(sin(distance / (2 * EARTH_RADIUS)) / cos(lat))
-        dlng = degrees(dlng)        # 弧度转换成角度
-        dlat = distance / EARTH_RADIUS
-        dlng = degrees(dlat)     # 弧度转换成角度
-        print "left:", lat + dlat, lng
-        print "left-top    :", lat + dlat, lng - dlng
-        print "right-top   :", lat + dlat, lng + dlng
-        print "left-bottom :", lat - dlat, lng - dlng
-        print "right-bottom:", lat - dlat, lng + dlng
+    # def distanceTo(self, p):
+    #     return self.radToDis(
+    #         math.acos(
+    #             math.cos(
+    #                 self.degToRad(self.lat)
+    #             ) * math.cos(
+    #                 self.degToRad(p.lat)
+    #             ) * math.cos(
+    #                 self.degToRad(self.lng - p.lng)
+    #             ) + math.sin(
+    #                 self.degToRad(self.lat)
+    #             ) * math.sin(
+    #                 self.degToRad(p.lat)
+    #             )
+    #         )
+    #     )
 
     def getPointBydirection(self, direction, distance):
         """
@@ -128,20 +95,9 @@ class PointOnEarth:
         p.lat = self.radToDeg(p.lat)
         return p
 
-    # def get_locations_all(self):
-    #     locations = []
-    #
-    #     for i in range(0, 360, 90):
-    #         location = {}
-    #         p2 = self.getPointBydirection(i, 1)
-    #         location['lat'] = p2.lat
-    #         location['lng'] = p2.lng
-    #         locations.append(location)
-    #     return locations
-
     def get_location(self, direction=0, radius=0.5):
         p2 = self.getPointBydirection(direction, radius)
-        return {'lat': p2.lat, 'lng': p2.lng}
+        return {'lat': round(p2.lat, 8), 'lng': round(p2.lng, 8)}
 
     def test_get_location(self, direction=0, radius=0.5):
         border_location_right = {
@@ -155,11 +111,10 @@ class PointOnEarth:
         print '%s,%s' % (t_location['lat'], t_location['lng'])
         print ','.join(border_location_right.values())
 
+    def get_circle(self, lat, lng, distance):
+        EARTH_RADIUS = 6371
+        dlng = 2 * asin(sin(distance / (2 * EARTH_RADIUS)) / cos(lat))
+        dlng = degrees(dlng)        # 弧度转换成角度
+
 if __name__ == "__main__":
     p = PointOnEarth(121.458, 24.960)
-    # p.getAround(121.5598, 25.0910, 1000)
-    # p.get_lat_lng(121.5598, 25.0910, 1)
-    locations = p.get_locations()
-    # p.get_location()
-    for i in locations:
-        print i.values

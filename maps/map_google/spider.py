@@ -101,7 +101,7 @@ class GooglePlacesParser():
                     url = self.get_url(location, type)
                     print url
                     self.parse_html(url)
-                self.crud.update_location_status(location)
+                self.crud.update_location_status(location['_id'])
         else:
             print "*------*-*all app keys have been used*-*-----*"
             sys.exit()
