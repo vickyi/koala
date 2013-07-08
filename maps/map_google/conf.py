@@ -42,7 +42,4 @@ level1_types = ['food', 'restaurant',  'amusement_park', 'park']
 level2_types = ['cafe', 'school', 'night_club', 'zoo']
 level3_types = ['shopping_mall', 'hair_care', 'museum']
 types = [level1_types, level2_types, level3_types]
-app_keys = [ 'AIzaSyAw0jhkE1v890qEZ3AeS8nmliUr4sTG_5M', 'AIzaSyDZaHRpC3xQYFOBZlopW-awRSIKFKIjryM', 'AIzaSyDRs-fG8hhn0EtHalyX8mCV6Qap4JU4qHI',
-             'AIzaSyAc40giECD9324cpB0ihinneVvM1zHZNvg', 'AIzaSyC_xY2TekE8KoCZ5Bd14YpqUhM8gUzSvmQ', 'AIzaSyBQXwKWudaPt5vbCUE3Q8_aYc7fDar_mRk',
-             'AIzaSyAviH-KwdIOrHwT0tqQRR2YvcOk7MqD1S0', 'AIzaSyCGys4yeF2HwnNikMwiGxPHr68iaXscjF4', 'AIzaSyA5fWLW2FJCfjn7EUXS4IVm-lt3GtllKOw',
-             'AIzaSyBsDoHtEtWlPn8XArrCjgN92n1szBe9zr0']
+app_keys = []
