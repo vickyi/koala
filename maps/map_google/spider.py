@@ -25,14 +25,6 @@ def init_browser():
                       'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:15.0) Gecko/20100101 Firefox/15. 0.1 FirePHP/0.7.1 AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.162 Safari/535.19')]
 
     return br
-
-# Want debugging messages?
-#br.set_debug_http(True)
-#br.set_debug_redirects(True)
-#br.set_debug_responses(True)
-
-# User-Agent (this is cheating, ok?)
-
 init_browser = init_browser()
 
 
@@ -74,24 +66,10 @@ class GooglePlacesParser():
         url += '&language=%s' % self.change_language()
         url += '&location=' + '%s,%s' % (location['lat'], location['lng'])
         url += '&radius=%s' % self.change_radius() # 500 m
-        url += '&types=%s' % '|'.join(type)
+        url += '&types=establishment|%s' % '|'.join(type)
         url += '&key=%s' % self.key
         url += '&pagetoken='
         return url
-
-    # def change_app_key(self):
-    #     for app_key in app_keys:
-    #         self.request_times = 0
-    #         while self.request_times <= 1000:
-    #             self.get_all_locations(app_key)
-    #
-    # def get_all_locations(self, app_key):
-    #     all_locations = self.crud.read_all_locations()
-    #     for location in all_locations:
-    #         for type in types:
-    #             self.url = self.get_url(app_key, location, type)
-    #             print self.url
-    #             self.parse_html(self.url)
 
     def run(self):
         all_locations = self.crud.read_all_locations()
@@ -129,13 +107,6 @@ class GooglePlacesParser():
         else:
             return
 
-# from datetime import datetime
-
 if __name__ == "__main__":
     gpp = GooglePlacesParser()
-    # border_location_right = {
-    #     "lat": 24.970,
-    #     "lng": 121.666
-    # }
-    # print gpp.get_url(app_keys[0], border_location_right, 'food')
     gpp.run()

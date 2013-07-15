@@ -78,3 +78,12 @@ formatted_address，即一个字符串，其中包含此地方的可人工读取
 默认情况下，每个地方搜索针对每次查询返回多达 20 个 establishment 结果。不过，每个搜索可能会返回 60 个结果，分成三页显示。如果您的搜索返回 20 多个结果，则搜索响应会包含一个附加值 - next_page_token。将 next_page_token 的值传递到新搜索的 pagetoken 参数，查看下一个结果组。如果 next_page_token 为 Null，或未返回，则之后也不存在返回结果。
 
 例如，在下列查询中，我们搜索澳大利亚悉尼达令海港附近的餐馆，并按距离对搜索结果进行排序。您可以看到响应包含一个 next_page_token 属性。
+
+
+反向地理编码（地址查询）
+
+“地理编码”这一术语通常指将易于理解的地址转换成地图上的一个点的过程。与此相反，将地图上的位置转换成易于理解的地址这一过程则称为“反向地理编码”。
+
+Geocoding API 支持直接使用 latlng 参数进行反向地理编码。例如，以下查询包含了布鲁克林某一位置的纬度/经度值：
+
+http://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&sensor=true_or_false

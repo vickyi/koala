@@ -95,7 +95,7 @@ class PointOnEarth:
         p.lat = self.radToDeg(p.lat)
         return p
 
-    def get_location(self, direction=0, radius=0.5):
+    def get_location(self, direction=0, radius=0.4):
         p2 = self.getPointBydirection(direction, radius)
         return {'lat': round(p2.lat, 8), 'lng': round(p2.lng, 8)}
 

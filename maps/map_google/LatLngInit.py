@@ -8,19 +8,24 @@ import decimal
 
 class map_location:
 
+    # border_location_top = {
+    #     "lat": 25.210,
+    #     "lng": 121.560
+    # }
+
     border_location_top = {
-        "lat": 25.210,
-        "lng": 121.560
+        "lat": 25.117,
+        "lng": 121.513
     }
 
     border_location_right = {
-        "lat": 24.970,
-        "lng": 121.666
+        "lat": 25.0382,
+        "lng": 121.5904
     }
 
     border_location_base = {
-        "lat": 24.970,
-        "lng": 121.456
+        "lat": 25.0331,
+        "lng": 121.5002
     }
 
     def init_location(self, location, degree):
@@ -30,7 +35,7 @@ class map_location:
         location['degree'] = degree
         return location
 
-    def get_location_x(self, direction=90, radius=0.5):
+    def get_location_x(self, direction=90, radius=0.4):
         """
         东经
         lng change
@@ -52,7 +57,7 @@ class map_location:
         @return:
         """
         direction = 0
-        radius = 1
+        radius = 0.2
         locations = []
         location = self.border_location_base
         while location['lat'] <= self.border_location_top['lat']:
@@ -62,13 +67,21 @@ class map_location:
         print 'y_locations==', locations
         self.save(locations)
 
-    def get_direction_base(self, location_base, direction=0, radius=0.5):
+    def get_direction_base(self, location_base, direction=0, radius=0.4):
         """
         """
         p = PointOnEarth(location_base['lng'], location_base['lat'])
         location = p.get_location(direction, radius)
         if location:
             return location
+
+    def get_border(self, center):
+        p = PointOnEarth(center['lng'], center['lat'])
+        border = []
+        for d in xrange(0, 360, 90):
+            border.append(p.get_location(d, 8))
+        # print border
+        return border
 
     def save(self, results):
         mcrud = MongoCRUD()
@@ -78,7 +91,7 @@ class map_location:
         """
             location，其中包含此地方的经过地址解析的纬度(lat)、经度(lng)值
         """
-        locations = self.get_location_x(direction=90, radius=1)
+        locations = self.get_location_x(direction=90, radius=0.4)
         self.save(locations)
         for location in locations:
             self.get_location_y()
@@ -86,3 +99,6 @@ class map_location:
 if __name__ == "__main__":
     loc = map_location()
     loc.get_location_border()
+
+    # center = {"lng": 121.510208, "lat":25.054795}
+    # loc.get_border(center)

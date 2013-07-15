@@ -5,7 +5,7 @@ from pymongo import MongoClient, errors
 
 class MongoDriver:
 
-    mongo_local = {"host": "localhost", "port": 27017}
+    mongo_server = {"host": "localhost", "port": 27017}
 
     def __init__(self):
         pass
